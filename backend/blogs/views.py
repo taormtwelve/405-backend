@@ -5,9 +5,18 @@ from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 import keras
 import tensorflow as tf
 from django.http import HttpResponse
-
+from django.contrib import admin
+from .models import Hospital, User, Doctor, Image, Patient, Treatment
+import json
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-model = load_model('model/DenseNet121.h5')
+admin.site.register(Hospital)
+admin.site.register(User)
+admin.site.register(Doctor)
+admin.site.register(Image)
+admin.site.register(Patient)
+admin.site.register(Treatment)
+# model = load_model('model/DenseNet121.h5')
 
 def img_predict(request):
     IMG_SIZE = 224
@@ -39,8 +48,14 @@ def img_predict(request):
 def get_statistic(request):
     return HttpResponse()
 
+
 def login(request):
-    return HttpResponse()
+    if request.method == 'POST':
+        print('OK')
+    else:
+        print('NO')
+    print(request.headers)
+    return HttpResponse({request.body})
 
 def patients(request):
     return HttpResponse()
